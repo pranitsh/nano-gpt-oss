@@ -7,16 +7,27 @@ from tqdm.notebook import tqdm
 batch_size = 5
 context_len = 4000
 
+
 dataset = load_dataset("roneneldan/TinyStories")
-train_text = " ".join([ex["text"] for ex in dataset["train"]])
-val_text = " ".join([ex["text"] for ex in dataset["validation"]])
-
 tokenizer = get_tokenizer()
-print("tokenizing...")
-train_tokens = tokenizer.encode(train_text)
-val_tokens = tokenizer.encode(val_text)
-print("tokenized")
 
+print("Tokenizing train data (story by story)...")
+train_tokens = []
+
+for example in tqdm(dataset["train"]):
+    story_tokens = tokenizer.encode(example["text"], add_special_tokens=False)
+    train_tokens.extend(story_tokens) # .extend() adds all items from the list
+
+print("Tokenizing val data (story by story)...")
+val_tokens = []
+
+for example in tqdm(dataset["validation"]):
+    story_tokens = tokenizer.encode(example["text"], add_special_tokens=False)
+    val_tokens.extend(story_tokens)
+
+print("Tokenization complete.")
+print(f"Total train tokens: {len(train_tokens):,}")
+print(f"Total val tokens: {len(val_tokens):,}")
 
 class TextDataset(Dataset):
     def __init__(self, tokens, max_length=8192, stride=8192):
