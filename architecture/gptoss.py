@@ -248,22 +248,25 @@ class MLPBlock(torch.nn.Module):
         )
         assert config.intermediate_size % self.world_size == 0
         # Store experts as a list of separate modules to avoid indexing issues
-        self.experts = torch.nn.ModuleList([
-            torch.nn.Sequential(
-                torch.nn.Linear(
-                    config.hidden_size, 
-                    config.intermediate_size * 2 // self.world_size, 
-                    device=device, 
-                    dtype=torch.bfloat16
-                ),
-                torch.nn.Linear(
-                    config.intermediate_size // self.world_size, 
-                    config.hidden_size, 
-                    device=device, 
-                    dtype=torch.bfloat16
+        self.experts = torch.nn.ModuleList(
+            [
+                torch.nn.Sequential(
+                    torch.nn.Linear(
+                        config.hidden_size,
+                        config.intermediate_size * 2 // self.world_size,
+                        device=device,
+                        dtype=torch.bfloat16,
+                    ),
+                    torch.nn.Linear(
+                        config.intermediate_size // self.world_size,
+                        config.hidden_size,
+                        device=device,
+                        dtype=torch.bfloat16,
+                    ),
                 )
-            ) for _ in range(config.num_experts)
-        ])
+                for _ in range(config.num_experts)
+            ]
+        )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         seq_len, hidden_size = x.shape
@@ -284,12 +287,16 @@ class MLPBlock(torch.nn.Module):
             if not mask.any():
                 continue
             token_indices = torch.where(mask)[0]
-            expert_pos = (expert_indices_flat[token_indices] == expert_idx).nonzero(as_tuple=True)[1]
+            expert_pos = (expert_indices_flat[token_indices] == expert_idx).nonzero(
+                as_tuple=True
+            )[1]
             expert_input = t_flat[token_indices]
             weights = expert_weights_flat[token_indices, expert_pos]
             # Forward through this expert
             expert_out = expert_input
-            expert_out = self.experts[expert_idx][0](expert_out)  # First linear + activation
+            expert_out = self.experts[expert_idx][0](
+                expert_out
+            )  # First linear + activation
             expert_out = swiglu(expert_out, limit=self.swiglu_limit)
             expert_out = self.experts[expert_idx][1](expert_out)  # Second linear
             output[token_indices] += expert_out * weights.unsqueeze(-1)
@@ -375,16 +382,20 @@ class TokenGenerator:
         self.model = Transformer.from_checkpoint("./", device=self.device)
 
     @torch.inference_mode()
-    def generate(self,
-                 prompt_tokens: list[int],
-                 stop_tokens: list[int],
-                 temperature: float = 1.0,
-                 max_tokens: int = 0,
-                 return_logprobs: bool = False):
+    def generate(
+        self,
+        prompt_tokens: list[int],
+        stop_tokens: list[int],
+        temperature: float = 1.0,
+        max_tokens: int = 0,
+        return_logprobs: bool = False,
+    ):
         tokens = list(prompt_tokens)
         num_generated_tokens = 0
         while max_tokens == 0 or num_generated_tokens < max_tokens:
-            logits = self.model(torch.as_tensor(tokens, dtype=torch.int32, device=self.device))[-1]
+            logits = self.model(
+                torch.as_tensor(tokens, dtype=torch.int32, device=self.device)
+            )[-1]
             if temperature == 0.0:
                 predicted_token = torch.argmax(logits, dim=-1).item()
             else:
