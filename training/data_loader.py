@@ -62,5 +62,5 @@ val_loader = DataLoader(
     val_dataset, batch_size=batch_size, shuffle=False, num_workers=8, pin_memory=True
 )
 
-del dataset, train_text, val_text
+del dataset
 gc.collect()
