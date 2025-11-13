@@ -8,20 +8,26 @@ batch_size = 5
 context_len = 4000
 
 
-dataset = load_dataset("roneneldan/TinyStories")
+dataset = load_dataset(
+    "roneneldan/TinyStories",
+    split={
+        'train': 'train[:100000]',
+        'validation': 'validation[:20000]'
+    }
+)
 tokenizer = get_tokenizer()
 
 print("Tokenizing train data (story by story)...")
 train_tokens = []
 
-for example in tqdm(dataset["train"][:(len(dataset['train'])//20)]):
+for example in tqdm(dataset["train"]):
     story_tokens = tokenizer.encode(example["text"])
     train_tokens.extend(story_tokens)
 
 print("Tokenizing val data (story by story)...")
 val_tokens = []
 
-for example in tqdm(dataset["validation"][:(len(dataset['validation']//20))]):
+for example in tqdm(dataset["validation"]):
     story_tokens = tokenizer.encode(example["text"])
     val_tokens.extend(story_tokens)
 
