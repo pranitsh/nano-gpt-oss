@@ -117,14 +117,14 @@ def train_model(
                 # Save best model
                 if val_loss < best_val_loss:
                     best_val_loss = val_loss
-                    torch.save(model.state_dict(), "model/gotoss_best.pt")
+                    torch.save(model.state_dict(), "model/gptoss_best.pt")
                     artifact = wandb.Artifact("gptoss-model", type="model")
-                    artifact.add_file("model/gotoss_best.pt")
+                    artifact.add_file("model/gptoss_best.pt")
                     wandb.log_artifact(artifact)
                     print(f"✅ Saved new best model with val_loss={val_loss:.3f}")
-        torch.save(model.state_dict(), "model/gotoss.pt")
+        torch.save(model.state_dict(), "model/gptoss.pt")
         artifact = wandb.Artifact("gptoss-model", type="model")
-        artifact.add_file("model/gotoss.pt")
+        artifact.add_file("model/gptoss.pt")
         wandb.log_artifact(artifact, aliases=["latest"])
         torch.save([train_losses, val_losses, tokens_seen], "model/losses.pt")
         txt = generate_text(model, start_context)
@@ -188,7 +188,7 @@ def trainer(model, train_loader, val_loader, device):
         eval_iter=eval_iters,
         start_context="a fast driver named Tim went for",
     )
-    torch.save(model.state_dict(), "model/gotoss.pt")
+    torch.save(model.state_dict(), "model/gptoss.pt")
     end_time = time.time()
     execution_time_minutes = (end_time - start_time) / 60
     wandb.log({"training_time_min": execution_time_minutes})
