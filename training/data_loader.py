@@ -5,7 +5,7 @@ from datasets import load_dataset
 from tqdm import tqdm
 
 batch_size = 1
-context_len = 4000
+context_len = 2000
 
 train_file = "train_tokens.npy"
 val_file = "val_tokens.npy"
