@@ -3,6 +3,8 @@ from torch.utils.data import Dataset, DataLoader
 from architecture.tokenizer import get_tokenizer
 from datasets import load_dataset
 from tqdm import tqdm
+import os
+
 
 batch_size = 1
 context_len = 2000
