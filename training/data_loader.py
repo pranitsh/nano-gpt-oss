@@ -4,7 +4,7 @@ from architecture.tokenizer import get_tokenizer
 from datasets import load_dataset
 from tqdm import tqdm
 import os
-
+import numpy as np
 
 batch_size = 1
 context_len = 2000
