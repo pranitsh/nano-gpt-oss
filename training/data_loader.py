@@ -14,14 +14,14 @@ tokenizer = get_tokenizer()
 print("Tokenizing train data (story by story)...")
 train_tokens = []
 
-for example in tqdm(dataset["train"]):
+for example in tqdm(dataset["train"][:(len(dataset['train'])//20)]):
     story_tokens = tokenizer.encode(example["text"])
     train_tokens.extend(story_tokens)
 
 print("Tokenizing val data (story by story)...")
 val_tokens = []
 
-for example in tqdm(dataset["validation"]):
+for example in tqdm(dataset["validation"][:(len(dataset['validation']//20))]):
     story_tokens = tokenizer.encode(example["text"])
     val_tokens.extend(story_tokens)
 
