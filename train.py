@@ -3,7 +3,7 @@ from architecture.gptoss import Transformer, ModelConfig
 import torch
 from inference import generate_text
 from training.trainer import trainer
-from infrance import generate_text
+from inference import generate_text
 
 
 device = "cuda:0"
