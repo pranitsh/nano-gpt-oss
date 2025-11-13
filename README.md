@@ -1,5 +1,3 @@
-<div align="center">
-
 # Nano-GPT-OSS Language Model
 
 **An open-source transformer that balances full-context and sliding-window attention for efficient, scalable LLM training and inference.**
@@ -8,34 +6,6 @@
 <a href="https://huggingface.co"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-FFC107?logo=hugging%20face&logoColor=black" alt="Hugging Face"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"></a>
 
-![Val Loss of Gpt oss](assets/val-loss.png)
-
-</div>
-
-## Training & Validation Loss
-
-| loss | Training Loss| Validation Loss | Num Heads | Trf BLock | Hidden Dim |
-|--------|---------|---------|----------|----------|----------|
-| GPT-OSS | **1.981** | **1.682** | 12 | 12 | 1020 |
-| GPT2 | 3.124 | 2.747 | 12 | 12 | 1020 |
-| GPT-OSS | **2.034** | **1.725** | 12 | 8 | 1020 |
-| GPT2 | 2.593 | 2.173 | 12 | 8 | 1020 |
-| GPT-OSS | **2.031** | **1.778** | 12 | 6 | 1020 |
-| GPT2 | 2.570 | 2.331 | 12 | 6 | 1020 |
-| GPT-OSS | **1.984** | **1.678** | 8 | 12 | 1024 |
-| GPT2 | 2.445 | 2.036 | 8 | 12 | 1024 |
-| GPT-OSS | **2.212** | **1.901**| 8 | 8 | 1024 |
-| GPT2 | 2.416 | 2.011 | 8 | 8 | 1024 |
-| GPT-OSS | **2.075** | **1.760** | 8 | 6 | 1024 |
-| GPT2 | 2.734 | 2.323 | 8 | 6 | 1024 |
-| GPT-OSS | **1.943** | **1.684** | 6 | 12 | 1020 |
-| GPT2 | 2.748 | 2.366 | 6 | 12 | 1020 |
-| GPT-OSS | **2.014** | **1.767** | 6 | 8 | 1020 |
-| GPT2 | 2.594 | 2.213 | 6 | 8 | 1020 |
-| GPT-OSS | **2.125** | **1.820** | 6 | 6 | 1020 |
-| GPT2 | 2.784 | 2.366 | 6 | 6 | 1020 |
-
----
 ## Key Improvements of GPT-OSS over GPT-2
 
 ### 🏗️ Architecture Enhancements
@@ -84,145 +54,86 @@ Once upon a time, there was a big, red ball that could bounce very high...
 
 </details>
 
-## 🚀 Installation
-
-
-### 📦 Pip Installation
+## Training Procedure
 
 ```bash
-# clone project
 git clone https://github.com/VizuaraAI/nano-gpt-oss
 cd nano-gpt-oss
-
-# [OPTIONAL] create conda environment
-conda create -n myenv python=3.10
-conda activate myenv
-# Install requirements
 pip install -r requirements.txt
-</details>
-
-# install pytorch according to instructions
-# https://pytorch.org/get-started/
-# Install requirements
-pip install -r requirements.txt
+python train.py
 ```
 
+## Validation Loss per Step
 
-## How to run Training
+```txt
+warnings.warn(
+Ep 1 (Step 000000): Train loss 12.325, Val loss 12.350
+✅ Saved new best model with val_loss=12.350
+  4% 150/4230 [06:02<2:26:59,  2.16s/it]Ep 1 (Step 000150): Train loss 4.319, Val loss 4.003
+✅ Saved new best model with val_loss=4.003
+  7% 300/4230 [12:16<2:21:36,  2.16s/it]Ep 1 (Step 000300): Train loss 3.853, Val loss 3.766
+✅ Saved new best model with val_loss=3.766
+ 11% 450/4230 [18:18<2:16:48,  2.17s/it]Ep 1 (Step 000450): Train loss 3.784, Val loss 3.516
+✅ Saved new best model with val_loss=3.516
+ 14% 600/4230 [24:26<2:11:35,  2.18s/it]Ep 1 (Step 000600): Train loss 3.619, Val loss 3.325
+✅ Saved new best model with val_loss=3.325
+ 18% 750/4230 [30:32<2:06:03,  2.17s/it]Ep 1 (Step 000750): Train loss 3.444, Val loss 3.197
+✅ Saved new best model with val_loss=3.197
+ 21% 900/4230 [36:36<2:00:24,  2.17s/it]Ep 1 (Step 000900): Train loss 3.341, Val loss 3.144
+✅ Saved new best model with val_loss=3.144
+ 25% 1050/4230 [42:53<1:53:34,  2.14s/it]Ep 1 (Step 001050): Train loss 3.266, Val loss 3.075
+✅ Saved new best model with val_loss=3.075
+ 28% 1200/4230 [49:01<1:48:23,  2.15s/it]Ep 1 (Step 001200): Train loss 2.944, Val loss 2.916
+✅ Saved new best model with val_loss=2.916
+ 32% 1350/4230 [55:06<1:43:01,  2.15s/it]Ep 1 (Step 001350): Train loss 3.138, Val loss 2.850
+✅ Saved new best model with val_loss=2.850
+ 35% 1500/4230 [1:01:15<1:37:45,  2.15s/it]Ep 1 (Step 001500): Train loss 2.991, Val loss 2.788
+✅ Saved new best model with val_loss=2.788
+ 39% 1650/4230 [1:07:14<1:33:13,  2.17s/it]Ep 1 (Step 001650): Train loss 3.084, Val loss 2.759
+✅ Saved new best model with val_loss=2.759
+ 43% 1800/4230 [1:13:32<1:28:07,  2.18s/it]Ep 1 (Step 001800): Train loss 2.866, Val loss 2.716
+✅ Saved new best model with val_loss=2.716
+ 46% 1950/4230 [1:19:50<1:22:15,  2.16s/it]Ep 1 (Step 001950): Train loss 3.050, Val loss 2.638
+✅ Saved new best model with val_loss=2.638
+ 50% 2100/4230 [1:25:54<1:17:21,  2.18s/it]Ep 1 (Step 002100): Train loss 2.575, Val loss 2.594
+✅ Saved new best model with val_loss=2.594
+ 53% 2250/4230 [1:32:02<1:11:41,  2.17s/it]Ep 1 (Step 002250): Train loss 2.628, Val loss 2.569
+✅ Saved new best model with val_loss=2.569
+ 57% 2400/4230 [1:38:26<1:05:57,  2.16s/it]Ep 1 (Step 002400): Train loss 2.666, Val loss 2.600
+ 60% 2550/4230 [1:44:03<1:01:44,  2.21s/it]Ep 1 (Step 002550): Train loss 2.872, Val loss 2.553
+✅ Saved new best model with val_loss=2.553
+ 64% 2700/4230 [1:49:55<54:39,  2.14s/it]Ep 1 (Step 002700): Train loss 2.841, Val loss 2.475
+✅ Saved new best model with val_loss=2.475
+ 67% 2850/4230 [1:55:57<49:32,  2.15s/it]Ep 1 (Step 002850): Train loss 2.647, Val loss 2.459
+✅ Saved new best model with val_loss=2.459
+ 71% 3000/4230 [2:02:06<44:14,  2.16s/it]Ep 1 (Step 003000): Train loss 2.759, Val loss 2.450
+✅ Saved new best model with val_loss=2.450
+ 74% 3150/4230 [2:08:16<38:53,  2.16s/it]Ep 1 (Step 003150): Train loss 2.572, Val loss 2.462
+ 78% 3300/4230 [2:13:53<33:42,  2.17s/it]Ep 1 (Step 003300): Train loss 2.319, Val loss 2.381
+✅ Saved new best model with val_loss=2.381
+ 82% 3450/4230 [2:19:55<28:05,  2.16s/it]Ep 1 (Step 003450): Train loss 2.697, Val loss 2.350
+✅ Saved new best model with val_loss=2.350
+ 85% 3600/4230 [2:25:57<23:01,  2.19s/it]Ep 1 (Step 003600): Train loss 2.464, Val loss 2.347
+✅ Saved new best model with val_loss=2.347
+ 89% 3750/4230 [2:31:56<17:16,  2.16s/it]Ep 1 (Step 003750): Train loss 2.556, Val loss 2.353
+ 92% 3900/4230 [2:37:30<11:53,  2.16s/it]Ep 1 (Step 003900): Train loss 2.728, Val loss 2.322
+✅ Saved new best model with val_loss=2.322
+ 96% 4050/4230 [2:43:30<06:32,  2.18s/it]Ep 1 (Step 004050): Train loss 2.278, Val loss 2.278
+✅ Saved new best model with val_loss=2.278
+ 99% 4200/4230 [2:50:47<01:04,  2.16s/it]Ep 1 (Step 004200): Train loss 2.370, Val loss 2.263
+✅ Saved new best model with val_loss=2.263
+100% 4230/4230 [2:53:24<00:00,  2.46s/it]
+```
 
-The system will automatically detect and utilize available GPU resources. To train the GPT-OSS model, choose one of the following methods:
+# First Epoch
 
-### Option 1: Command Line Interface
+Input: "a fast driver named Tim went for"
+Output: "a walk. Tim saw a big, scary toy car. He wanted to play with, but he didn't know. So, Tim went to visit with his friend, Tim.
 
-1. Navigate to the project directory:
-   ```bash
-   cd nano-gpt-oss
-   ```
+Tim said, "Hi, Tim! Do you want to play with me?" Tim walked to the car and asked, "Yes, please!" His friend Tim. Tim tried to catch the car, but he couldn't too fast.
 
-2. Start training with default configuration:
-   ```bash
-   python train.py
-   ```
+Tim and his friend played with the toy car for a while, Tim found a toy car."
 
-### Option 2: Jupyter Notebook
+# Models
 
-1. Launch Jupyter from the project directory:
-   ```bash
-   jupyter notebook
-   ```
-
-2. Open `trains.ipynb`
-3. Run all cells sequentially using `Cell > Run All`
-
-### Monitoring Training
-- Training progress and metrics will be displayed in the console
-- Model checkpoints are saved in the `checkpoints` directory
-- Training logs can be found in the `logs` directory
-
-
-### Why nano GPT-OSS is better than nano GPT2
-
-## 1. Loss Curves Analysis
-
-### 1.1 Validation Loss Comparison
-
-| Model Size (Layers) | GPT-OSS Val Loss | GPT2 Val Loss | Improvement |
-|---------------------|------------------|---------------|-------------|
-| 6 Layers           | 1.76            | 2.01          | 12.4%       |
-| 8 Layers           | 1.89            | 2.01          | 6.0%        |
-| 12 Layers          | 1.67            | 1.28          | 30.5%       |
-
-### 1.2 Key Observations
-
-- **Parameter Efficiency**: GPT-OSS consistently achieves better validation loss with the same number of parameters, demonstrating superior parameter efficiency.
-- **Scaling Behavior**: The performance gap between GPT-OSS and GPT2 becomes more pronounced with larger model sizes, with GPT-OSS showing a 30.5% improvement in the 12-layer configuration.
-- **Training Stability**: GPT-OSS exhibits more stable training dynamics across different model sizes, as evidenced by smoother loss curves and better convergence.
-
-### 1.3 Performance Analysis
-
-- **6-Layer Models**: GPT-OSS shows significant improvement (12.4% better validation loss) despite having the same architecture.
-- **12-Layer Models**: The advantage of GPT-OSS becomes even more substantial, with a 30.5% improvement in validation loss, suggesting better scaling properties.
-
-### 1.4 Conclusion
-
-The loss curves and metrics clearly demonstrate that **GPT-OSS** is more parameter-efficient and performs better than the standard **GPT2** model across different model sizes, particularly in larger configurations. This suggests that the architectural improvements in GPT-OSS lead to better learning dynamics and generalization.
-
----
-
-## 2. Model Size & Efficiency
-
-### 2.1 Architecture Comparison
-| Parameter | Layers | Hidden Dim | Attention Heads | Parameters | Model Size |
-|-----------|---------|---------|--------|--------|--------|
-| **GPT-OSS** | 12 | 1020 | 12 | 588M | 2.19 GB |
-| **GPT2** | 12 | 1020 | 12 | 564M | 2.46 GB |
-
-
-### 2.2 Inference Performance
-| Metric | GPT-OSS | GPT2 | Notes |
-|--------|---------|---------|-------|
-| **Disk Size (FP16)** | 2.19 GB | 2.46 GB | GPT2 needs more storage. |
-| **RAM (Inference)** | 2.60 GB | 2.94 GB | GPT2 requires high-end GPU. |
-| **Inference(Tok/Sec)** | 25 | 30 | GPT-OSS is slower than GPT2 . |
-
-#### Key Insights
-- **Storage Efficiency**: GPT-OSS uses 11% less disk space despite having 4% more parameters
-- **Memory Optimization**: 11.6% lower RAM usage makes GPT-OSS more hardware-friendly
-- **Performance Trade-off**: Slightly slower inference (25 vs 30 tokens/sec) for better efficiency
-- **Deployment Advantage**: Lower memory requirements enable broader hardware compatibility
-
----
-
-## 3. Creativity
-
-
-
-| Model | Grammar score | Creativity score | Consistency score | Num Heads | Trf BLock | Hidden Dim |
-|--------|---------|---------|----------|----------|----------|----------|
-| GPT-OSS | **6** | **4** | **6** | 12 | 12 | 1020 |
-| GPT2 | 3 | 4 | 2 | 12 | 12 | 1020 |
-| GPT-OSS | **5** | **4** | **3** | 12 | 8 | 1020 |
-| GPT2 | 5 | 4 | 4 | 12 | 8 | 1020 |
-| GPT-OSS | **5** | **5** | **4** | 12 | 6 | 1020 |
-| GPT2 | 4 | 5 | 3 | 12 | 6 | 1020 |
-| GPT-OSS | **6** | **5** | **5** | 8 | 12 | 1024 |
-| GPT2 | 4 | 4 | 4 | 8 | 12 | 1024 |
-| GPT-OSS | **6** | **5** | **5**| 8 | 8 | 1024 |
-| GPT2 | 6 | 5 | 4 | 8 | 8 | 1024 |
-| GPT-OSS | **4** | **3** | **4** | 8 | 6 | 1024 |
-| GPT2 | 3 | 4 | 2 | 8 | 6 | 1024 |
-| GPT-OSS | **5** | **6** | **6** | 6 | 12 | 1020 |
-| GPT2 | 2 | 3 | 1 | 6 | 12 | 1020 |
-| GPT-OSS | **5** | **6** | **6** | 6 | 8 | 1020 |
-| GPT2 | 3 | 3 | 2 | 6 | 8 | 1024 |
-| GPT-OSS | **4** | **5** | **3** | 6 | 6 | 1020 |
-| GPT2 | 1 | 2 | 1 | 6 | 6 | 1020 |
-
-#### Key Insights
-- **Performance Trends**: GPT-OSS consistently shows higher scores across most configurations, especially with fewer layers and attention heads.
-- **Resource Efficiency**: GPT-OSS maintains strong performance (scores 4-6) even with 6 layers, while GPT2's performance drops significantly (scores 1-3) with reduced architecture size.
-- **Optimal Configuration**: Both models perform best with 12 layers, but GPT-OSS shows more stable performance across different configurations.
-- **Quality vs. Resources**: GPT-OSS demonstrates better parameter efficiency, achieving high-quality outputs with fewer computational resources compared to GPT2.
-- **Consistency**: GPT-OSS shows less variance in scores (4-6 range) compared to GPT2 (1-6 range), indicating more reliable performance across different model sizes.
-
----
+Models available per request.
