@@ -44,8 +44,8 @@ else:
     train_tokens_np = np.array(train_tokens_list, dtype=np.uint32)
     val_tokens_np = np.array(val_tokens_list, dtype=np.uint32)
     print("Saving token arrays to disk...")
-    np.save(train_tokens_np, train_tokens)
-    np.save(val_tokens_np, val_tokens)
+    np.save(train_file, train_tokens_np)
+    np.save(val_file, val_tokens_np)
     print("Token files saved.")
     del train_tokens_np, val_tokens_np
 
