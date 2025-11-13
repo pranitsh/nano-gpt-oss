@@ -29,7 +29,7 @@ else:
     )
     tokenizer = get_tokenizer()
     print("Tokenizing train data (story by story)...")
-    train_tokens_list = []-
+    train_tokens_list = []
     for example in tqdm(dataset["train"]):
         story_tokens = tokenizer.encode(example["text"])
         train_tokens_list.extend(story_tokens)
