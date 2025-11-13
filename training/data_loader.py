@@ -31,18 +31,18 @@ else:
     )
     tokenizer = get_tokenizer()
     print("Tokenizing train data (story by story)...")
-    train_tokens_list = []
+    train_tokens = []
     for example in tqdm(dataset["train"]):
         story_tokens = tokenizer.encode(example["text"])
-        train_tokens_list.extend(story_tokens)
+        train_tokens.extend(story_tokens)
     print("Tokenizing val data (story by story)...")
-    val_tokens_list = []
+    val_tokens = []
     for example in tqdm(dataset["validation"]):
         story_tokens = tokenizer.encode(example["text"])
-        val_tokens_list.extend(story_tokens)
+        val_tokens.extend(story_tokens)
     print("Converting to numpy arrays...")
-    train_tokens_np = np.array(train_tokens_list, dtype=np.uint32)
-    val_tokens_np = np.array(val_tokens_list, dtype=np.uint32)
+    train_tokens_np = np.array(train_tokens, dtype=np.uint32)
+    val_tokens_np = np.array(val_tokens, dtype=np.uint32)
     print("Saving token arrays to disk...")
     np.save(train_file, train_tokens_np)
     np.save(val_file, val_tokens_np)
