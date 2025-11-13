@@ -4,14 +4,14 @@ from architecture.tokenizer import get_tokenizer
 from datasets import load_dataset
 from tqdm import tqdm
 
-batch_size = 5
+batch_size = 1
 context_len = 4000
 
 
 dataset = load_dataset(
     "roneneldan/TinyStories",
     split={
-        'train': 'train[:100000]',
+        'train': 'train[:40000]',
         'validation': 'validation[:20000]'
     }
 )
